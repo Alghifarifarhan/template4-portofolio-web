@@ -1,0 +1,363 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: 'PT Sans', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --color-accent: #FFFFFF;
+  --color-accent-light: #F4F4F5;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #ffffff;
+}
+
+html.dark {
+  background-color: #09090b;
+}
+
+body {
+  font-family: var(--font-body), sans-serif;
+  background-color: #ffffff;
+  color: #18181b;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.dark body {
+  background-color: #09090b;
+  color: #f4f4f5;
+}
+
+/* noise overlay - lightweight performance optimized */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.15;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+.dark body::before {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+}
+
+/* Item 8: Black Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 99px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #27272a;
+}
+
+/* Item 1: Dynamic Accent Opacity Utilities (Subtle background & border) */
+.bg-accent {
+  background-color: var(--color-accent, #FFFFFF) !important;
+}
+.bg-accent:hover, .hover\:bg-accent-light:hover {
+  filter: brightness(1.15);
+}
+.bg-accent-subtle {
+  background-color: color-mix(in srgb, var(--color-accent, #FFFFFF) 12%, transparent) !important;
+}
+.text-accent {
+  color: var(--color-accent, #FFFFFF) !important;
+}
+.border-accent {
+  border-color: var(--color-accent, #FFFFFF) !important;
+}
+.border-accent-subtle {
+  border-color: color-mix(in srgb, var(--color-accent, #FFFFFF) 30%, transparent) !important;
+}
+
+/* reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.6s cubic-bezier(.4, 0, .2, 1), transform 0.6s cubic-bezier(.4, 0, .2, 1);
+}
+.reveal.visible, .reveal.in {
+  opacity: 1;
+  transform: none;
+}
+.d1, .reveal-delay-1 { transition-delay: .08s; }
+.d2, .reveal-delay-2 { transition-delay: .16s; }
+.d3, .reveal-delay-3 { transition-delay: .24s; }
+.d4, .reveal-delay-4 { transition-delay: .32s; }
+.d5, .reveal-delay-5 { transition-delay: .4s; }
+.d6, .reveal-delay-6 { transition-delay: .48s; }
+
+/* Dynamic Accent Hover Underline Animation */
+.nl, .nav-link {
+  position: relative;
+}
+.nl::after, .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--color-accent, #FFFFFF);
+  transition: width .22s cubic-bezier(.4, 0, .2, 1);
+}
+.nl:hover::after, .nl.on::after, .nav-link:hover::after {
+  width: 100%;
+}
+.nl.on {
+  font-weight: 500;
+}
+
+/* shimmer button */
+.shimmer, .btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after, .btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: rgba(255, 255, 255, .25);
+  transform: skewX(-20deg);
+  transition: left .4s cubic-bezier(.4, 0, .2, 1);
+}
+.shimmer:hover::after, .btn-primary:hover::after {
+  left: 160%;
+}
+
+/* photo frames */
+.pf, .photo-frame {
+  overflow: hidden;
+  background: #d4d4d8;
+  position: relative;
+}
+.pf img, .photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* card hover */
+.card-h, .card, .project-card {
+  transition: transform .28s cubic-bezier(.4, 0, .2, 1), border-color .18s;
+}
+.card-h:hover, .card:hover, .project-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-accent, #FFFFFF);
+}
+
+/* skill tag */
+.stag {
+  transition: border-color .18s;
+}
+.stag:hover {
+  border-color: var(--color-accent, #FFFFFF);
+}
+
+/* Reading progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--color-accent, #FFFFFF);
+  z-index: 100;
+  transition: width .1s linear;
+}
+
+/* Case study prose */
+.prose-cs h2 {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  margin: 2.75rem 0 1rem;
+  line-height: 1.25;
+}
+.prose-cs h3 {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 2rem 0 .6rem;
+  line-height: 1.3;
+  color: var(--color-accent, #FFFFFF);
+}
+.prose-cs p {
+  margin: 0 0 1.4rem;
+  line-height: 1.82;
+}
+.prose-cs ul {
+  margin: 0 0 1.4rem 1.5rem;
+  list-style: disc;
+}
+.prose-cs li {
+  margin-bottom: .45rem;
+  line-height: 1.7;
+}
+.prose-cs blockquote {
+  border-left: 3px solid var(--color-accent, #FFFFFF);
+  padding: .75rem 1.25rem;
+  margin: 0 0 1.8rem;
+  border-radius: 0 8px 8px 0;
+}
+.prose-cs hr {
+  border: none;
+  border-top: 1px solid #e4e4e7;
+  margin: 2.5rem 0;
+}
+.dark .prose-cs hr {
+  border-top-color: #27272a;
+}
+.prose-cs a {
+  color: var(--color-accent, #FFFFFF);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.stat-card {
+  border-left: 3px solid var(--color-accent, #FFFFFF);
+}
+
+.img-caption {
+  font-size: .8rem;
+  color: #a1a1aa;
+  text-align: center;
+  margin-top: .6rem;
+}
+
+.step-badge {
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
+  border-radius: 50%;
+  background: var(--color-accent, #FFFFFF);
+  color: #fff;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: .85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Article typography */
+.prose-article h2 {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 2.5rem 0 1rem;
+  line-height: 1.25;
+}
+.prose-article h3 {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 2rem 0 .75rem;
+  line-height: 1.3;
+}
+.prose-article p {
+  margin: 0 0 1.4rem;
+  line-height: 1.8;
+}
+.prose-article ul {
+  margin: 0 0 1.4rem 1.5rem;
+  list-style: disc;
+}
+.prose-article li {
+  margin-bottom: .4rem;
+  line-height: 1.7;
+}
+.prose-article pre {
+  background: #18181b;
+  color: #e4e4e7;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  font-size: .85rem;
+  line-height: 1.7;
+  margin: 0 0 1.6rem;
+}
+.prose-article code:not(pre code) {
+  background: #f4f4f5;
+  color: var(--color-accent, #FFFFFF);
+  padding: .15em .4em;
+  border-radius: 4px;
+  font-size: .875em;
+}
+.dark .prose-article code:not(pre code) {
+  background: #27272a;
+}
+.prose-article blockquote {
+  border-left: 3px solid var(--color-accent, #FFFFFF);
+  padding: .75rem 1.25rem;
+  margin: 0 0 1.6rem;
+  border-radius: 0 8px 8px 0;
+}
+.prose-article a {
+  color: var(--color-accent, #FFFFFF);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-article hr {
+  border: none;
+  border-top: 1px solid #e4e4e7;
+  margin: 2.5rem 0;
+}
+
+.dark .prose-article hr {
+  border-top-color: #27272a;
+}
+
+/* Mobile Navigation Drawer & Load-in Animations */
+.mobile-menu-container {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.mobile-menu-container.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.mobile-menu-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mobile-nav-item {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-menu-container.open .mobile-nav-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-nav-item:nth-child(1) { transition-delay: 60ms; }
+.mobile-nav-item:nth-child(2) { transition-delay: 110ms; }
+.mobile-nav-item:nth-child(3) { transition-delay: 160ms; }
+.mobile-nav-item:nth-child(4) { transition-delay: 210ms; }
+.mobile-nav-item:nth-child(5) { transition-delay: 260ms; }
+.mobile-nav-item:nth-child(6) { transition-delay: 310ms; }
+

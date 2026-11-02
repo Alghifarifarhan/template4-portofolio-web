@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Site content: read by all, edit only by authenticated admin
+    match /siteData/{document=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    // Site statistics: public can increment, read by all
+    match /siteStats/{document=**} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Blog comments: public can read and submit comments, only admin can delete/modify
+    match /blogComments/{commentId} {
+      allow read: if true;
+      allow create: if request.resource.data.authorName is string
+                    && request.resource.data.content is string
+                    && request.resource.data.authorName.size() > 0
+                    && request.resource.data.content.size() > 0;
+      allow update, delete: if request.auth != null;
+    }
+  }
+}
