@@ -1,4 +1,4 @@
-# 🚀 Modern Portfolio & Dynamic CMS Website
+# 🚀 Template 4 - Modern Portfolio & Dynamic CMS Website
 
 Sebuah website portofolio modern, interaktif, dan berkecepatan tinggi yang dilengkapi dengan **Halaman Admin (CMS)** mandiri, integrasi real-time database via **Google Cloud Firestore**, sistem autentikasi **Firebase Auth**, pemilihan tema (Dark/Light mode & custom accent colors), serta formulir kontak terintegrasi dengan **Formspree**.
 
@@ -208,37 +208,6 @@ http://localhost:3000
 
 ---
 
-## 📦 Membangun (*Build*) & Deployment ke Firebase Hosting
-
-Proyek ini telah dikonfigurasi dengan mode static export (`out/`).
-
-### 1. Build Proyek
-```bash
-npm run build
-```
-Perintah ini akan membuat folder `out/` yang berisi file HTML, CSS, dan JS statis yang siap di-hosting.
-
-### 2. Deploy ke Firebase Hosting
-Pastikan Anda sudah memasang Firebase CLI:
-```bash
-npm install -g firebase-tools
-```
-Login ke akun Google Anda:
-```bash
-firebase login
-```
-Hubungkan dengan project Firebase Anda (ganti dengan project ID Anda):
-```bash
-firebase use your-project-id
-```
-Lakukan deploy ke Firebase Hosting:
-```bash
-firebase deploy
-```
-Website portofolio Anda sekarang sudah live di domain `https://your-project-id.web.app`! 🎉
-
----
-
 ## 📬 Panduan Formulir Kontak Formspree
 
 Formulir kontak pada bagian **Get in touch** menggunakan layanan gratis dari **Formspree** agar pesan langsung masuk ke email pribadi tanpa server tambahan.
@@ -250,16 +219,6 @@ Formulir kontak pada bagian **Get in touch** menggunakan layanan gratis dari **F
 5. Buka Halaman Admin website Anda ➔ buka tab **Header, Nav & Kontak**.
 6. Gulir ke bagian **Integrasi Formspree Contact Form** dan tempelkan link endpoint tersebut.
 7. Klik tombol **Simpan Perubahan**.
-
----
-
-## 📊 Informasi Batasan Kuota Gratis Firebase (Spark Plan)
-
-Website ini berjalan di atas layanan **Firebase Hosting & Firestore Spark Plan (Gratis)** dari Google:
-- **Bandwidth Firebase Hosting:** **10 GB per bulan** (~12.500 pageviews/bulan).
-- **Pembacaan Data Firestore (Reads):** **50.000 reads per hari** (di-reset otomatis setiap hari pukul 07:00 WIB).
-- **Penyimpanan Data Firestore:** **1 GB** (sangat mencukupi untuk ribuan data teks portofolio).
-- Kuota hosting di-reset otomatis menjadi nol pada **tanggal 1 setiap awal bulan baru**.
 
 ---
 
